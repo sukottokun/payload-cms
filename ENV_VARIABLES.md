@@ -54,7 +54,7 @@ This document lists all the environment variables required for your Payload CMS 
 For local development, create a `.env` file in the project root with:
 
 ```env
-PAYLOAD_SECRET=your-secret-key-here
+PAYLOAD_SECRET=it5g4qO4XyY539zvyMRVrlu5sEFZLDOcRLMu2oMAAp0=
 DATABASE_URI=postgresql://user:password@localhost:5432/payloadcms
 NODE_ENV=development
 PORT=3000
