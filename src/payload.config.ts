@@ -11,6 +11,9 @@ import { Media } from './collections/Media'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+// Configure SSL for Digital Ocean databases
+const connectionString = process.env.DATABASE_URI || ''
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -26,12 +29,13 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
-      ssl: process.env.DATABASE_URI?.includes('sslmode=require')
+      connectionString: connectionString,
+      // SSL config for Digital Ocean - accepts self-signed certificates
+      ssl: connectionString && (connectionString.includes('ondigitalocean.com') || connectionString.includes('sslmode=require'))
         ? {
             rejectUnauthorized: false,
           }
-        : false,
+        : undefined,
     },
   }),
   sharp,
