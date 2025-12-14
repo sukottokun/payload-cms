@@ -7,6 +7,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -21,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Pages],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -31,11 +32,14 @@ export default buildConfig({
     pool: {
       connectionString: connectionString,
       // SSL config for Digital Ocean - accepts self-signed certificates
-      ssl: connectionString && (connectionString.includes('ondigitalocean.com') || connectionString.includes('sslmode=require'))
-        ? {
-            rejectUnauthorized: false,
-          }
-        : undefined,
+      ssl:
+        connectionString &&
+        (connectionString.includes('ondigitalocean.com') ||
+          connectionString.includes('sslmode=require'))
+          ? {
+              rejectUnauthorized: false,
+            }
+          : undefined,
     },
   }),
   sharp,
