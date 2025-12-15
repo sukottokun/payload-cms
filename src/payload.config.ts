@@ -25,6 +25,12 @@ export default buildConfig({
   collections: [Users, Media, Pages],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
+  cors: [
+    'https://dev-headless-on-pantheon.pantheonsite.io',
+    'https://test-headless-on-pantheon.pantheonsite.io',
+    'https://headless-on-pantheon.pantheonsite.io',
+    'http://localhost:3000',
+  ],
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
